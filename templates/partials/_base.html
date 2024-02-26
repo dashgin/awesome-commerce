@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+
+    <link rel="shortcut icon" href="{% static "images/favicon/favicon.ico" %}" type="image/x-icon">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                screen: {
+                    sm: "576px",
+                    md: "768px",
+                    lg: "992px",
+                    xl: "1200px",
+                },
+                container: {
+                    center: true,
+                    padding: "1rem",
+                },
+                extend: {
+                    fontFamily: {
+                        poppins: ["Poppins", "sans-serif"],
+                        roboto: ["Roboto", "sans-serif"],
+                    },
+                    colors: {
+                        primary: "#007bff",
+                    },
+                },
+            }
+        };
+
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static "lib/fontawesome-free/css/all.min.css" %}">
+</head>
+
+
+<body>
+{% include "partials/_header.html" %}
+
+{% block content %} {% endblock %}
+
+{% include "partials/_footer.html" %}
+</body>
