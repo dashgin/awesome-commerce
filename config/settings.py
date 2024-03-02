@@ -22,6 +22,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third-party apps
+    "django_browser_reload",
+    "allauth",
+    # Local apps
+    "contact",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -85,6 +91,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTH_USER_MODEL = "accounts.User"
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -105,7 +113,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Media files (Images, Videos, etc.)
 
-MEDIA_ROOT = BASE_DIR / "media" 
+MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
 # Default primary key field type

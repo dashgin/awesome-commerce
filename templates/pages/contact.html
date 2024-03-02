@@ -1,0 +1,93 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+    <strong class="font-bold">{{ message }}</strong>
+    <span class="block sm:inline">Success!</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+        <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20">
+            <title>Close</title>
+            <path
+                d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+        </svg>
+    </span>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="container mx-auto">
+    <form class="w-full max-w-xs" action="{% url 'contact' %}" method="post">
+        {% csrf_token %}
+
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                    Full Name
+                </label>
+                <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border {% if form.errors %} border-red-500 {% endif %} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    id="grid-first-name" type="text" placeholder="Jane" name="full_name">
+                {% if form.errors %}
+                <p class="text-red-500 text-xs italic">{{ form.full_name.errors }}</p>
+                border-red-500
+                {% endif %}
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                    Email
+                </label>
+                <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-last-name" type="email" placeholder="john@mail.com" name="email">
+                {% if form.errors %}
+                <p class="text-red-500 text-xs italic">{{ form.email.errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                    Phone
+                </label>
+                <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-password" type="text" placeholder="+994123456789" name="phone">
+                {% if form.errors %}
+                <p class="text-red-500 text-xs italic">{{ form.phone.errors }}</p>
+                {% endif%}
+
+                <p class="text-gray-600 text-xs italic">Only Azerbaijan numbers allowed</p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 px-3">
+            <textarea
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                placeholder="Message" name="message"></textarea>
+            {% if form.errors %}
+            <p class="text-red-500 text-xs italic">{{ form.message.errors }}</p>
+            {% endif %}
+
+        </div>
+
+        <div class="md:flex md:items-center">
+            <div class="md:w-1/3">
+                <button
+                    class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                    type="submit">
+                    Send
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
