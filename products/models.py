@@ -21,13 +21,11 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, editable=False, max_length=110)
     
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
     description = models.TextField(null=True, blank=True)
     quantity = models.IntegerField(default=1, null=True)
-    phone_number = models.CharField(max_length=15)
-    additional_contact = models.CharField(max_length=150, null=True, blank=True)
-    featured = models.BooleanField(default=False)
+  
     price = models.FloatField()
     discount_price = models.FloatField(null=True, blank=True)
     
