@@ -31,18 +31,26 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     birth_date = models.DateField(_("Birth Date"), blank=True, null=True)
     phone = models.CharField(_("Phone"), blank=True, max_length=15)
     profile_photo = models.ImageField(_("Profile Photo"), upload_to="profile_photos", blank=True, null=True)
-    bio = models.TextField(_("Bio"), blank=True, null=True)
     
     def __str__(self):
-        return self.name
+        return self.user.name
+
+    @property
+    def get_profile_photo_url(self):
+        if self.profile_photo and hasattr(self.profile_photo, "url"):
+            return self.profile_photo.url
+        return f"https://ui-avatars.com/api/?name={self.user.name}&size=300"
+        return "/static/images/avatar.png"
 
 
 class Address(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
+    name = models.CharField(_("Name"), max_length=255)
+    phone = models.CharField(_("Phone"), max_length=15)
     address = models.CharField(_("Address"), max_length=255)
     city = models.CharField(_("City"), max_length=255)
     country = models.CharField(_("Country"), max_length=255)
