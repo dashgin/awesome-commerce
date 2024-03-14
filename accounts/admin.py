@@ -5,8 +5,8 @@ from django.contrib.auth import decorators
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
-from .forms import UserAdminChangeForm
-from .forms import UserAdminCreationForm
+from .admin_forms import UserAdminChangeForm, UserAdminCreationForm
+from .models import Address, Profile
 
 User = get_user_model()
 
@@ -44,3 +44,18 @@ class UserAdmin(auth_admin.UserAdmin):
             },
         ),
     )
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ["user", "phone", "birth_date"]
+    search_fields = ["user__name"]
+    ordering = ["id"] 
+
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ["user", "address", "city", "country", "zip_code"]
+    search_fields = ["user__name"]
+    ordering = ["id"]
+    list_filter = ["country"]

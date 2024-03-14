@@ -1,45 +1,64 @@
-from allauth.account.forms import SignupForm
-from allauth.socialaccount.forms import SignupForm as SocialSignupForm
-from django.contrib.auth import forms as admin_forms
+from typing import Any
 from django.contrib.auth import get_user_model
-from django.forms import EmailField
+from django import forms
 from django.utils.translation import gettext_lazy as _
+from .models import Profile, Address
 
 User = get_user_model()
 
 
-class UserAdminChangeForm(admin_forms.UserChangeForm):
-    class Meta(admin_forms.UserChangeForm.Meta):
-        model = User
-        field_classes = {"email": EmailField}
+class RegisterForm(forms.Form):
+    name = forms.CharField(label=_("Name"))
+    email = forms.EmailField(label=_("Email"))
+    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
+    password2 = forms.CharField(
+        label=_("Password confirmation"), widget=forms.PasswordInput
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError(_("Email already exists"))
+        return email
+
+    def clean_password2(self):
+        password = self.cleaned_data["password"]
+        password2 = self.cleaned_data["password2"]
+        if password != password2:
+            raise forms.ValidationError(_("Passwords do not match"))
+        return password2
+
+    def save(self):
+        return User.objects.create_user(
+            name=self.cleaned_data["name"],
+            email=self.cleaned_data["email"],
+            password=self.cleaned_data["password"],
+        )
 
 
-class UserAdminCreationForm(admin_forms.UserCreationForm):
-    """
-    Form for User Creation in the Admin Area.
-    To change user signup, see UserSignupForm and UserSocialSignupForm.
-    """
+class ProfileForm(forms.ModelForm):
+    name = forms.CharField(label=_("Name"), required=False)
 
-    class Meta(admin_forms.UserCreationForm.Meta):
-        model = User
-        fields = ("email",)
-        field_classes = {"email": EmailField}
-        error_messages = {
-            "email": {"unique": _("This email has already been taken.")},
+    class Meta:
+        model = Profile
+        fields = ["name", "birth_date", "phone", "profile_photo"]
+        widgets = {
+            "birth_date": forms.DateInput(attrs={"type": "date"}),
         }
 
+    def save(self, commit=True):
+        print(f"ProfileForm.save: {self.cleaned_data}")
+        user_name = self.cleaned_data.pop("name")
+        profile = super().save(commit=False)
+        user = self.instance.user
+        user.name = user_name
+        user.save()
+        if commit:
+            profile.save()
+        return profile
 
-class UserSignupForm(SignupForm):
-    """
-    Form that will be rendered on a user sign up section/screen.
-    Default fields will be added automatically.
-    Check UserSocialSignupForm for accounts created from social.
-    """
 
-
-class UserSocialSignupForm(SocialSignupForm):
-    """
-    Renders the form when user has signed up using social accounts.
-    Default fields will be added automatically.
-    See UserSignupForm otherwise.
-    """
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ["address", "city", "country", "zip_code", "name", "phone"]

@@ -27,13 +27,13 @@
         <div class="text-xs leading-3">Wishlist</div>
         <div class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">8</div>
       </a>
-      <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+      <a href="{% url 'account-detail' %}" class="text-center text-gray-700 hover:text-primary transition relative">
         <div class="text-2xl">
           <i class="fa-regular fa-user"></i>
         </div>
         <div class="text-xs leading-3">Account</div>
       </a>
-      {% else %}
+      {% endif %}
     </div>
   </div>
 </header>
@@ -77,7 +77,7 @@
 
     <div class="flex items-center justify-between flex-grow pl-12">
       <div class="flex items-center space-x-6 capitalize">
-        <a href="../index.html" class="text-gray-200 hover:text-white transition">Home</a>
+        <a href='{% url "index" %}' class="text-gray-200 hover:text-white transition">Home</a>
         <a href="pages/shop.html" class="text-gray-200 hover:text-white transition">Shop</a>
         <a href="{% url "about" %}" class="text-gray-200 hover:text-white transition">About</a>
         <a href="#" class="text-gray-200 hover:text-white transition">Contact us</a>
@@ -86,14 +86,26 @@
         {% if user.is_authenticated %}
         <form action="{% url 'logout' %}" method="post">
           {% csrf_token %}
-          <button type="submit" class="text-gray-200 hover:text-white transition">Logout</button>
+          <button type="submit" class="text-gray-200 hover:text-white transition"> <i class="fa fa-sign-out" aria-hidden="true"></i></button>
         </form>
         
         {% else %}
 
-        <a href="{% url 'login' %}" class="text-gray-200 hover:text-white transition">Login</a>
-       
-        <a href="#" class="text-gray-200 hover:text-white transition"> / Register</a>
+        <div class="flex items-center space-x-4">
+          <a href="{% url 'login' %}" class="text-center text-gray-200 hover:text-white transition relative">
+            <div class="text-2xl">
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
+            </div>
+            <div class="text-xs leading-3">Login</div>
+          </a>
+
+          <a href="{% url 'register' %}" class="text-center text-gray-200 hover:text-white transition relative">
+            <div class="text-2xl">
+              <i class="fa fa-user-plus" aria-hidden="true"></i>
+            </div>
+            <div class="text-xs leading-3">Register</div>
+          </a>
+        </div>
         {% endif %}
       </span>
     </div>
