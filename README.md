@@ -22,8 +22,36 @@
 - [ ] Cart - Add to Cart | Remove from Cart
 - [ ] Checkout - Payment | Order Summary | Order History | Invoice
 
-#
 
+## Installation
+
+1. Clone the repository
+```bash 
+git clone https://github.com/dashgin/awesome-commerce.git
+``` 
+
+2. Create a virtual environment and install the dependencies
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+3. Migrate the database and create a superuser
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+4. Run the development server
+```bash
+python manage.py runserver
+```
+
+### Visit the website at [http://localhost:8000](http://localhost:8000)
+
+
+## Credits
 HTML template credit: [https://github.com/fajar7xx/ecommerce-template-tailwind-1](https://github.com/fajar7xx/ecommerce-template-tailwind-1)
 
 

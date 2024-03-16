@@ -1,0 +1,4 @@
+Django==5.0.2
+django-allauth==0.61.1
+django-browser-reload==1.12.1
+pillow==10.2.0
