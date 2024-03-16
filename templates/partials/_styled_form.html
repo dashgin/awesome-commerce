@@ -1,0 +1,10 @@
+<div class="space-y-2">
+    {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}" class="text-gray-600 mb-2 block">{{ field.label }}</label>
+            {{ field }}
+            <span class="text-red-500">{{ field.errors }}</span>
+            <span class="text-red-500">{{ field.help_text }}</span>
+        </div>
+    {% endfor %}
+</div>

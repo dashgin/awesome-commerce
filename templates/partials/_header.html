@@ -7,8 +7,11 @@
 
     <div class="w-full max-w-xl relative flex">
       <span class="absolute left-4 top-3 text-lg text-gray-400"><i class="fa-solid fa-magnifying-glass"></i></span>
-      <input type="text" name="search" id="search" class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none hidden md:flex" placeholder="search" />
-      <button class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition hidden md:flex">Search</button>
+      <input type="text" name="search" id="search"
+        class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none hidden md:flex"
+        placeholder="search" />
+      <button
+        class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition hidden md:flex">Search</button>
     </div>
 
     <div class="flex items-center space-x-4">
@@ -17,7 +20,9 @@
           <i class="fa-solid fa-bag-shopping"></i>
         </div>
         <div class="text-xs leading-3">Cart</div>
-        <div class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">2</div>
+        <div
+          class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+          2</div>
       </a>
       {% if user.is_authenticated %}
       <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
@@ -25,7 +30,9 @@
           <i class="fa-regular fa-heart"></i>
         </div>
         <div class="text-xs leading-3">Wishlist</div>
-        <div class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">8</div>
+        <div
+          class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+          8</div>
       </a>
       <a href="{% url 'account-detail' %}" class="text-center text-gray-700 hover:text-primary transition relative">
         <div class="text-2xl">
@@ -47,7 +54,8 @@
       <span class="capitalize ml-2 text-white">All Categories</span>
 
       <!-- dropdown -->
-      <div class="absolute w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
+      <div
+        class="absolute w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
         <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
           <img src="../assets/images/icons/sofa.svg" alt="sofa" class="w-5 h-5 object-contain" />
           <span class="ml-6 text-gray-600 text-sm">Sofa</span>
@@ -79,16 +87,17 @@
       <div class="flex items-center space-x-6 capitalize">
         <a href='{% url "index" %}' class="text-gray-200 hover:text-white transition">Home</a>
         <a href="pages/shop.html" class="text-gray-200 hover:text-white transition">Shop</a>
-        <a href="{% url "about" %}" class="text-gray-200 hover:text-white transition">About</a>
-        <a href="{% url "contact" %}" class="text-gray-200 hover:text-white transition">Contact us</a>
+        <a href="{% url 'about' %}" class="text-gray-200 hover:text-white transition">About</a>
+        <a href="{% url 'contact' %}" class="text-gray-200 hover:text-white transition">Contact us</a>
       </div>
       <span>
         {% if user.is_authenticated %}
         <form action="{% url 'logout' %}" method="post">
           {% csrf_token %}
-          <button type="submit" class="text-gray-200 hover:text-white transition"> <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+          <button type="submit" class="text-gray-200 hover:text-white transition"> <i class="fa fa-sign-out"
+              aria-hidden="true"></i></button>
         </form>
-        
+
         {% else %}
 
         <div class="flex items-center space-x-4">
@@ -112,3 +121,4 @@
   </div>
 </nav>
 <!-- ./navbar -->
+
