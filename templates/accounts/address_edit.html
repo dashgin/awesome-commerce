@@ -2,20 +2,14 @@
 {% load static %}
 
 {% block title %}
-Address
+Address Edit
 {% endblock %}
 
 {% block content %}
+
+
 <!-- breadcrumb -->
-<div class="container py-4 flex items-center gap-3">
-    <a href="../index.html" class="text-primary text-base">
-        <i class="fa-solid fa-house"></i>
-    </a>
-    <span class="text-sm text-gray-400">
-        <i class="fa-solid fa-chevron-right"></i>
-    </span>
-    <p class="text-gray-600 font-medium">Profile</p>
-</div>
+{% include 'partials/_breadcrumb.html' %}
 <!-- ./breadcrumb -->
 
 <!-- wrapper -->
@@ -33,9 +27,8 @@ Address
             Profile information
         </h4> -->
         
-        <div class="space-y-4">
-            {{ form.as_p }}
-        </div>
+        {% include 'partials/_styled_form.html' %}
+
         {% if form.errors %}
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
             <strong class="font-bold">Oops!</strong>

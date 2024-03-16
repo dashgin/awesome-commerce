@@ -1,0 +1,39 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}
+Contact
+{% endblock %}
+
+{% block content %}
+
+<!-- login -->
+<div class="contain py-16">
+    <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+        <h2 class="text-2xl uppercase font-medium mb-1">Contact Us</h2>
+        <p class="text-gray-600 mb-6 text-sm">
+            We are here to help you
+        </p>
+        <form class="space-y-6" action="{% url 'contact' %}" method="post">
+            {% csrf_token %}
+
+
+            {% include 'partials/_styled_form.html' %}
+
+            
+            <div class="mt-4">
+                <button type="submit"
+                    class="block w-full py-2 text-center self-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">
+                    Send
+                </button>
+            </div>
+
+
+        </form>
+
+
+
+
+    </div>
+</div>
+{% endblock %}

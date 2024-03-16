@@ -1,0 +1,68 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+
+<!-- login -->
+<div class="contain py-16">
+    <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+        <h2 class="text-2xl uppercase font-medium mb-1">Login</h2>
+        <p class="text-gray-600 mb-6 text-sm">
+            welcome back customer
+        </p>
+        <!-- non field errors -->
+        {% if form.non_field_errors %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">{{ form.non_field_errors }}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+              <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+            </span>
+          </div>
+        {% endif %}
+        <!-- ./non field errors -->
+        <form action="{% url 'login' %}" method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            {% include 'partials/_styled_form.html' %}
+
+            <div class="flex items-center justify-between mt-6">
+                <div class="flex items-center">
+                    <input type="checkbox" name="remember" id="remember"
+                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                    <label for="remember" class="text-gray-600 ml-3 cursor-pointer">Remember me</label>
+                </div>
+                <a href="#" class="text-primary">Forgot password</a>
+            </div>
+            <div class="mt-4">
+                <button type="submit"
+                    class="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">Login</button>
+            </div>
+        </form>
+
+        <!-- login with -->
+        <div class="mt-6 flex justify-center relative">
+            <div class="text-gray-600 uppercase px-3 bg-white z-10 relative">Or login with</div>
+            <div class="absolute left-0 top-3 w-full border-b-2 border-gray-200"></div>
+        </div>
+        <div class="mt-4 flex gap-4">
+            <a href="#"
+                class="w-1/2 py-2 text-center text-white bg-blue-800 rounded uppercase font-roboto font-medium text-sm hover:bg-blue-700">facebook</a>
+            <a href="#"
+                class="w-1/2 py-2 text-center text-white bg-red-600 rounded uppercase font-roboto font-medium text-sm hover:bg-red-500">google</a>
+        </div>
+        <!-- ./login with -->
+
+        <p class="mt-4 text-center text-gray-600">Don't have account? <a href="{% url 'register' %}"
+                class="text-primary">Register
+                now</a></p>
+    </div>
+</div>
+<!-- ./login -->
+
+
+{% endblock %}

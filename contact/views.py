@@ -9,6 +9,6 @@ from .forms import ContactForm
 class ContactView(SuccessMessageMixin, CreateView):
     model = Contact
     form_class = ContactForm
-    template_name = 'pages/contact.html'
+    template_name = 'contact/contact.html'
     success_url = reverse_lazy('contact') # => /contact/
     success_message = 'Your message has been accepted'

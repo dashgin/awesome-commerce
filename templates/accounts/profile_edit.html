@@ -1,0 +1,44 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}
+Profile Edit
+{% endblock %}
+
+{% block content %}
+
+
+<!-- breadcrumb -->
+{% include 'partials/_breadcrumb.html' %}
+<!-- ./breadcrumb -->
+
+
+<!-- wrapper -->
+<div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
+
+    <!-- sidebar -->
+    {% include 'partials/_sidebar.html' %}
+    <!-- ./sidebar -->
+
+    <!-- info -->
+    <form action="{% url 'profile-edit' %}" method="post" enctype="multipart/form-data"
+        class="col-span-9 shadow rounded px-6 pt-5 pb-7">
+        {% csrf_token %}
+        <h4 class="text-lg font-medium capitalize mb-4">
+            Profile information
+        </h4>
+        {% include 'partials/_styled_form.html' %}
+
+        <div class="mt-4">
+            <button type="submit"
+                class="py-3 px-4 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition font-medium">save
+                changes</button>
+        </div>
+    </form>
+    <!-- ./info -->
+
+</div>
+<!-- ./wrapper -->
+
+
+{% endblock %}

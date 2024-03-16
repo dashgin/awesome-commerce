@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Home
+Register
 {% endblock %}
 
 {% block content %}
@@ -15,32 +15,9 @@ Home
         </p>
         <form action="{% url 'register' %}" method="post" autocomplete="off">
             {% csrf_token %}
-            <div class="space-y-2">
-                <div>
-                    <label for="id_name" class="text-gray-600 mb-2 block">Full Name</label>
-                    <input type="text" name="name" id="id_name"
-                        class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                        placeholder="John Doe">
-                </div>
-                <div>
-                    <label for="id_email" class="text-gray-600 mb-2 block">Email address</label>
-                    <input type="email" name="email" id="id_email"
-                        class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                        placeholder="youremail.@domain.com">
-                </div>
-                <div>
-                    <label for="id_password" class="text-gray-600 mb-2 block">Password</label>
-                    <input type="password" name="password" id="id_password"
-                        class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                        placeholder="*******">
-                </div>
-                <div>
-                    <label for="id_password2" class="text-gray-600 mb-2 block">Confirm password</label>
-                    <input type="password" name="password2" id="id_password2"
-                        class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                        placeholder="*******">
-                </div>
-            </div>
+
+            {% include 'partials/_styled_form.html' %}
+
             <div class="mt-6">
                 <div class="flex items-center">
                     <input type="checkbox" name="aggrement" id="aggrement"
@@ -56,7 +33,6 @@ Home
                 </button>
             </div>
         </form>
-
         <!-- login with -->
         <div class="mt-6 flex justify-center relative">
             <div class="text-gray-600 uppercase px-3 bg-white z-10 relative">Or signup with</div>
@@ -70,7 +46,8 @@ Home
         </div>
         <!-- ./login with -->
 
-        <p class="mt-4 text-center text-gray-600">Already have account? <a href="{% url 'login' %}" class="text-primary">Login
+        <p class="mt-4 text-center text-gray-600">Already have account? <a href="{% url 'login' %}"
+                class="text-primary">Login
                 now</a></p>
     </div>
 </div>
