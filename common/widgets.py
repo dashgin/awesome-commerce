@@ -8,10 +8,6 @@ class StyledWidgetMixin:
         "class": "block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
     }
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.attrs = self.attrs | self.extra_atrr
-
     def build_attrs(self, base_attrs, extra_attrs=None):
         return super().build_attrs(base_attrs, extra_attrs) | self.extra_atrrs
 

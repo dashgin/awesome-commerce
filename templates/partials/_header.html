@@ -15,7 +15,7 @@
     </div>
 
     <div class="flex items-center space-x-4">
-      <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+      <a href="{% url 'cart' %}" class="text-center text-gray-700 hover:text-primary transition relative">
         <div class="text-2xl">
           <i class="fa-solid fa-bag-shopping"></i>
         </div>
@@ -23,7 +23,7 @@
         <div
           class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
           2</div>
-      </a>
+      </>
       {% if user.is_authenticated %}
       <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
         <div class="text-2xl">
@@ -56,30 +56,12 @@
       <!-- dropdown -->
       <div
         class="absolute w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
-        <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-          <img src="../assets/images/icons/sofa.svg" alt="sofa" class="w-5 h-5 object-contain" />
-          <span class="ml-6 text-gray-600 text-sm">Sofa</span>
-        </a>
-        <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-          <img src="../assets/images/icons/terrace.svg" alt="terrace" class="w-5 h-5 object-contain" />
-          <span class="ml-6 text-gray-600 text-sm">Terarce</span>
-        </a>
-        <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-          <img src="../assets/images/icons/bed.svg" alt="bed" class="w-5 h-5 object-contain" />
-          <span class="ml-6 text-gray-600 text-sm">Bed</span>
-        </a>
-        <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-          <img src="../assets/images/icons/office.svg" alt="office" class="w-5 h-5 object-contain" />
-          <span class="ml-6 text-gray-600 text-sm">office</span>
-        </a>
-        <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-          <img src="../assets/images/icons/outdoor-cafe.svg" alt="outdoor" class="w-5 h-5 object-contain" />
-          <span class="ml-6 text-gray-600 text-sm">Outdoor</span>
-        </a>
-        <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-          <img src="../assets/images/icons/bed-2.svg" alt="Mattress" class="w-5 h-5 object-contain" />
-          <span class="ml-6 text-gray-600 text-sm">Mattress</span>
-        </a>
+        {% for category in categories_for_header %}
+          <a href="" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+            <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-5 h-5 object-contain" />
+            <span class="ml-6 text-gray-600 text-sm">{{ category.name }}</span>
+          </a>
+        {% endfor %}
       </div>
     </div>
 
