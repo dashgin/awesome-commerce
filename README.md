@@ -17,9 +17,9 @@
 - [x] Pages - Contact | About
 - [x] User - Register | Edit | Login | Logout | Password Reset | Password Change
 - [ ] Authentication - Login with Google | 2FA | Account Verify (optional)
-- [ ] Categories - List | Detail
-- [ ] Products - List | Detail | Search | Filter | Wishlist
-- [ ] Cart - Add to Cart | Remove from Cart
+- [x] Categories - List | Detail
+- [ ] Products - List | Detail | Search(live search with htmx) | Filter | Wishlist, Rating, Reviews, ProductSpecifications(like color, size, etc, depending on the product)
+- [x] Cart - Add to Cart | Remove from Cart
 - [ ] Checkout - Payment | Order Summary | Order History | Invoice
 
 

@@ -1,8 +1,35 @@
 from .models import CartItem
 from products.models import Product
+from abc import ABC, abstractmethod
 
 
-class SessionCartService:
+class AbstractCartService(ABC):
+
+    @abstractmethod
+    def add(self, product, quantity):
+        raise NotImplementedError
+
+    @abstractmethod
+    def remove(self, product_id):
+        raise NotImplementedError
+
+    @abstractmethod
+    def __len__(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_total(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def clear(self):
+        raise NotImplementedError
+
+    def is_empty(self):
+        return len(self.cart_items) == 0
+
+
+class SessionCartService(AbstractCartService):
     def __init__(self, request):
         self.session = request.session
         cart = self.session.get("cart")
@@ -22,32 +49,17 @@ class SessionCartService:
     def save(self):
         self.session.modified = True
 
-    def remove(self, product):
-        product_id = str(product.id)
+    def remove(self, product_id):
+        product_id = str(product_id)
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
 
-    def __iter__(self):
-        """
-        {
-            "1": {"quantity": 1},
-            "2": {"quantity": 2},
-        }==>>
-        ==>>{
-            "1": {"quantity": 1, "product": Product(id=1, name="Product 1", price=100)},
-            "2": {"quantity": 2, "product": Product(id=2, name="Product 2", price=200)},
-        }
-        """
-        product_ids = self.cart.keys()
-        products = Product.objects.filter(id__in=product_ids)
-        for product in products:
-            self.cart[str(product.id)]["product"] = product
-        for item in self.cart.values():
-            item["total_price"] = item["product"].price * item["quantity"]
-            yield item
-
     def __len__(self):
+        """
+        cart = SessionCartService(request)
+        len(cart) ==>> 3
+        """
         return sum(item["quantity"] for item in self.cart.values())
 
     def get_total(self):
@@ -57,15 +69,33 @@ class SessionCartService:
         del self.session["cart"]
         self.save()
 
-    def is_empty(self):
-        return len(self.cart) == 0
-
     @property
     def cart_items(self):
-        return list(self)
+        """
+        {
+            "1": {"quantity": 1},
+            "2": {"quantity": 2},
+        }==>>
+        ==>>{
+            "1": {"quantity": 1, "product": Product(id=1, name="Product 1", price=100), "total_price": 100},
+            "2": {"quantity": 2, "product": Product(id=2, name="Product 2", price=200), "total_price": 400},
+        }
+        """
+        cart_items_list = []
+        product_ids = self.cart.keys()
+        products = Product.objects.filter(id__in=product_ids)
+
+        for product in products:
+            self.cart[str(product.id)]["product"] = product
+            self.cart[str(product.id)]["total_price"] = (
+                product.price * self.cart[str(product.id)]["quantity"]
+            )
+            cart_items_list.append(self.cart[str(product.id)])
+
+        return cart_items_list
 
 
-class DatabaseCartService:
+class DatabaseCartService(AbstractCartService):
     def __init__(self, request):
         self.user = request.user
         self.cart_items = CartItem.objects.filter(user=self.user)
@@ -82,23 +112,20 @@ class DatabaseCartService:
                 quantity=quantity,
             )
 
-    def remove(self, product):
+    def remove(self, product_id):
         CartItem.objects.filter(
             user=self.user,
-            product=product,
+            product_id=product_id,
         ).delete()
 
     def __len__(self):
-        return CartItem.objects.filter(user=self.user).count()
+        return sum(item.quantity for item in self.cart_items)
 
     def get_total(self):
-        return sum(item.product.price * item.quantity for item in self.cart_items)
+        return sum(item.total_price for item in self.cart_items)
 
     def clear(self):
         CartItem.objects.filter(user=self.user).delete()
-
-    def is_empty(self):
-        return not CartItem.objects.filter(user=self.user).exists()
 
 
 class CartService:

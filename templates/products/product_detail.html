@@ -33,7 +33,7 @@
                 <span><i class="fa-solid fa-star"></i></span>
                 <span><i class="fa-solid fa-star"></i></span>
                 <span><i class="fa-solid fa-star"></i></span>
-                <span><i class="fa-solid fa-star"></i></span>
+                <span><i class="fa-solid fa-star-half"></i></span>
             </div>
             <div class="text-xs text-gray-500 ml-3">(150 Reviews)</div>
         </div>
@@ -91,7 +91,7 @@
         </div>
 
         <!-- Add to cart form -->
-        <form action="/cart/add/" method="POST">
+        <form action="{% url 'add_to_cart' %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="product_id" value="{{ product.id }}">
 
@@ -101,8 +101,7 @@
                     {% for key, value in product.variants.sizes.items %}
                     <div
                         class="flex p-1 border-2 border-gray-400 cursor-pointer {% if not value.1 %} cursor-not-allowed pointer-events-none opacity-50 {% endif %}">
-                        <input type="radio" name="id_by_size" value="{{ value.0 }}" id="radio_{{ forloop.counter }}"
-                            required>
+                        <input type="radio" name="id_by_size" value="{{ value.0 }}" id="radio_{{ forloop.counter }}">
                         <label class="" for="radio_{{ forloop.counter }}">
                             {{ key }}
                         </label>
