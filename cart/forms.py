@@ -24,3 +24,7 @@ class AddToCartForm(forms.Form):
             raise forms.ValidationError("Not enough stock")
         cleaned_data["product"] = product
         return cleaned_data
+
+
+class RemoveFromCartForm(forms.Form):
+    product_id = forms.IntegerField()

@@ -28,36 +28,39 @@ Cart
                         </thead>
                         <tbody>
                             {% for item in cart %}
-
-                            <tr>
-                                <td class="py-4">
-                                    <div class="flex items-center">
-                                        <img class="h-16 w-16 mr-4" src="{{ item.product.images.first.image.url }}"
-                                        alt="Product image">
-                                        <span class="font-semibold">{{ item.product.name }}</span>
-                                    </div>
-                                </td>
-                                <td class="py-4">
-                                    {{ item.product.price }}
-                                </td>
-                                <td class="py-4">
-                                    <div class="flex items-center">
-                                        <button class="border rounded-md py-2 px-4 mr-2">-</button>
-                                        <span class="text-center w-8">
-                                            {{ item.quantity }}
-                                        </span>
-                                        <button class="border rounded-md py-2 px-4 ml-2">+</button>
-                                    </div>
-                                </td>
-                                <td class="py-4">
-                                    {{ item.total_price }}
-                                </td>
-                                <td class="py-4">
-                                        <button class="text-red-500">
-                                            <i class="fas fa-trash-can fa-2x"></i>
-                                        </button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="py-4">
+                                        <div class="flex items-center">
+                                            <img class="h-16 w-16 mr-4" src="{{ item.product.images.first.image.url }}"
+                                                alt="Product image">
+                                            <span class="font-semibold">{{ item.product.name }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-4">
+                                        {{ item.product.price }}
+                                    </td>
+                                    <td class="py-4">
+                                        <div class="flex items-center">
+                                            <button class="border rounded-md py-2 px-4 mr-2">-</button>
+                                            <span class="text-center w-8">
+                                                {{ item.quantity }}
+                                            </span>
+                                            <button class="border rounded-md py-2 px-4 ml-2">+</button>
+                                        </div>
+                                    </td>
+                                    <td class="py-4">
+                                        {{ item.total_price }}
+                                    </td>
+                                    <td class="py-4">
+                                        <form action="{% url 'remove_from_cart' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                            <button type="submit" class="text-red-500">
+                                                <i class="fas fa-trash-can fa-2x"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -66,18 +69,18 @@ Cart
             <div class="md:w-1/4">
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h2 class="text-lg font-semibold mb-4">Summary</h2>
-                    <div class="flex justify-between mb-2">
+                    <!-- <div class="flex justify-between mb-2">
                         <span>Subtotal</span>
                         <span>$19.99</span>
                     </div>
                     <div class="flex justify-between mb-2">
                         <span>Taxes</span>
                         <span>$1.99</span>
-                    </div>
+                    </div>-->
                     <div class="flex justify-between mb-2">
                         <span>Shipping</span>
                         <span>$0.00</span>
-                    </div>
+                    </div> 
                     <hr class="my-2">
                     <div class="flex justify-between mb-2">
                         <span class="font-semibold">Total</span>
