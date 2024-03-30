@@ -8,6 +8,8 @@ from django.contrib.auth.views import (
     LoginView as DjangoLoginView,
     LogoutView as DjangoLogoutView,
     PasswordChangeView as DjangoPasswordChangeView,
+    PasswordResetView as DjangoPasswordResetView,
+    PasswordResetConfirmView as DjangoPasswordResetConfirmView,
 )
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
@@ -17,6 +19,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 
 from ..forms import RegisterForm, AuthenticationForm, PasswordChangeForm
+from ..forms import PasswordResetForm, PasswordResetConfirmForm
 
 
 class LoginView(DjangoLoginView):
@@ -51,9 +54,15 @@ class RegisterView(FormView):
             return HttpResponseRedirect(reverse_lazy("index"))
         return super().dispatch(request, *args, **kwargs)
 
-
 class PasswordChangeView(SuccessMessageMixin, DjangoPasswordChangeView):
     success_message = "Password changed successfully"
     success_url = reverse_lazy("password-change")
     template_name = "accounts/password_change_form.html"
     form_class = PasswordChangeForm
+
+class PasswordResetView(DjangoPasswordResetView):
+    form_class = PasswordResetForm
+
+
+class PasswordResetConfirmView(DjangoPasswordResetConfirmView):
+    form_class = PasswordResetConfirmForm

@@ -10,6 +10,8 @@ from common.widgets import StyledPasswordInput, StyledTextInput
 from django.contrib.auth.forms import (
     AuthenticationForm as DjangoAuthenticationForm,
     PasswordChangeForm as DjangoPasswordChangeForm,
+    PasswordResetForm as DjangoPasswordResetForm,
+    SetPasswordForm as DjangoPasswordResetConfirmForm,
 )
 
 User = get_user_model()
@@ -123,3 +125,22 @@ class AddressForm(forms.ModelForm):
             "name": widgets.StyledTextInput(attrs={"placeholder": "John Doe"}),
             "phone": widgets.StyledTextInput(attrs={"placeholder": "1234567890"}),
         }
+
+
+class PasswordResetForm(DjangoPasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs.update(
+            StyledTextInput.extra_atrrs
+        )
+
+
+class PasswordResetConfirmForm(DjangoPasswordResetConfirmForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["new_password1"].widget.attrs.update(
+            StyledPasswordInput.extra_atrrs
+        )
+        self.fields["new_password2"].widget.attrs.update(
+            StyledPasswordInput.extra_atrrs
+        )

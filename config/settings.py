@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     # Third-party apps
     "django_browser_reload",
     "allauth",
+    "password_reset",
     # Local apps
     "contact",
     "accounts",
@@ -123,3 +124,6 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_BACKEND  =  "django.core.mail.backends.filebased.EmailBackend" 
+EMAIL_FILE_PATH  =  BASE_DIR  /  "sent_emails"

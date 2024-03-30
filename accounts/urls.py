@@ -9,6 +9,8 @@ from .views import (
     ProfileEditView,
     AddressEditView,
 )
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
