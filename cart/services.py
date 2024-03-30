@@ -28,6 +28,8 @@ class AbstractCartService(ABC):
     def is_empty(self):
         return len(self.cart_items) == 0
 
+    def count(self):
+        return len(self.cart_items)
 
 class SessionCartService(AbstractCartService):
     def __init__(self, request):
@@ -60,10 +62,10 @@ class SessionCartService(AbstractCartService):
         cart = SessionCartService(request)
         len(cart) ==>> 3
         """
-        return sum(item["quantity"] for item in self.cart.values())
+        return sum(item["quantity"] for item in self.cart_items)
 
     def get_total(self):
-        return sum(item["total_price"] for item in self.cart.values())
+        return sum(item["total_price"] for item in self.cart_items)
 
     def clear(self):
         del self.session["cart"]
