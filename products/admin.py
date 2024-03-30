@@ -13,6 +13,8 @@ class ProductImageInline(admin.StackedInline):
     extra = 0
 
 
+admin.site.register(ProductImage)
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline]

@@ -68,10 +68,10 @@
         </div>
         <div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
             {% if product.discount_price %}
-            <p class="text-xl text-primary font-semibold">${{ product.discount_price }}</p>
-            <p class="text-base text-gray-400 line-through">${{ product.price }}</p>
+                <p class="text-xl text-primary font-semibold">${{ product.discount_price }}</p>
+                <p class="text-base text-gray-400 line-through">${{ product.price }}</p>
             {% else %}
-            <p class="text-xl text-primary font-semibold">${{ product.price }}</p>
+                <p class="text-xl text-primary font-semibold">${{ product.price }}</p>
             {% endif %}
         </div>
 

@@ -10,6 +10,7 @@ from .services import CartService
 
 class AddToCartView(FormView):
     form_class = AddToCartForm
+    template_name = "cart/cart.html"
 
     def form_valid(self, form):
         cart_service = CartService(self.request)
