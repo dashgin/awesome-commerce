@@ -11,6 +11,21 @@ RAFCART
 {% include 'partials/_breadcrumb.html' %}
 <!-- ./breadcrumb -->
 
+<!-- search_parameter -->
+{% block search_parameter %}
+<div class="container">
+    <div class="products">
+        {% for product in products %}
+            <div class="product">
+                <h2>{{ product.name }}</h2>
+            </div>
+        {% empty %}
+            <p>No products found.</p>
+        {% endfor %}
+    </div>
+</div>
+<!-- ./search_parameter -->
+{% endblock %}
 <!-- shop wrapper -->
 <div class="container grid md:grid-cols-4 grid-cols-2 gap-6 pt-4 pb-16 items-start">
     <!-- sidebar -->
